@@ -1,0 +1,23 @@
+{
+  "name": "dotenv-cli",
+  "description": "A global executable to run applications with the ENV variables loaded by dotenv",
+  "version": "1.0.0",
+  "author": "caske33",
+  "bin": {
+    "dotenv": "./cli.js"
+  },
+  "dependencies": {
+    "dotenv": "^1.2.0",
+    "minimist": "^1.1.3"
+  },
+  "devDependencies": {
+    "standard": "^5.0.2"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "preferGlobal": true,
+  "repository": "caske33/dotenv-cli",
+  "scripts": {
+    "lint": "./node_modules/.bin/standard"
+  }
+}

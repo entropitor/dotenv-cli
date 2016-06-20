@@ -8,4 +8,9 @@ var dotenv = require('dotenv')
 
 dotenv.load({path: path.resolve(argv.e || '.env')})
 
+if (argv.p) {
+  console.log(process.env[argv.p])
+  process.exit()
+}
+
 spawn(argv._[0], argv._.slice(1), {stdio: 'inherit'})

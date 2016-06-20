@@ -18,6 +18,6 @@
   "preferGlobal": true,
   "repository": "caske33/dotenv-cli",
   "scripts": {
-    "lint": "./node_modules/.bin/standard"
+    "lint": "standard"
   }
 }

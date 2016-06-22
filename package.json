@@ -7,7 +7,7 @@
     "dotenv": "./cli.js"
   },
   "dependencies": {
-    "dotenv": "^1.2.0",
+    "dotenv": "^2.0.0",
     "minimist": "^1.1.3"
   },
   "devDependencies": {
@@ -18,6 +18,6 @@
   "preferGlobal": true,
   "repository": "caske33/dotenv-cli",
   "scripts": {
-    "lint": "./node_modules/.bin/standard"
+    "lint": "standard"
   }
 }

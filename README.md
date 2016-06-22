@@ -19,6 +19,11 @@ Another .env file could be specified using the -e flag:
 $ dotenv -e .env2 <command with arguments>
 ```
 
+If you want to check the value of an environment variable, use the `-p` argument
+```bash
+$ dotenv -p NODE_ENV
+```
+
 ## License
 
 [MIT](https://en.wikipedia.org/wiki/MIT_License)

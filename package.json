@@ -7,6 +7,7 @@
     "dotenv": "./cli.js"
   },
   "dependencies": {
+    "cross-spawn": "^4.0.0",
     "dotenv": "^2.0.0",
     "minimist": "^1.1.3"
   },

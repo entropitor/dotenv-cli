@@ -1,23 +1,26 @@
 {
-  "name": "dotenv-cli",
+  "name": "dotenv-cli-plus",
   "description": "A global executable to run applications with the ENV variables loaded by dotenv",
-  "version": "1.1.1",
-  "author": "caske33",
+  "version": "1.0.0",
+  "author": "Sean Marchetti <sean.marchetti@gmail.com>",
   "bin": {
     "dotenv": "./cli.js"
   },
   "dependencies": {
-    "cross-spawn": "^4.0.0",
-    "dotenv": "^2.0.0",
-    "minimist": "^1.1.3"
+    "cross-spawn": "4.0.0",
+    "dotenv": "2.0.0",
+    "minimist": "1.2.0"
   },
   "devDependencies": {
-    "standard": "^5.0.2"
+    "standard": "8.1.0"
   },
   "license": "MIT",
   "main": "index.js",
   "preferGlobal": true,
-  "repository": "caske33/dotenv-cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smarchetti/dotenv-cli-plus.git"
+  },
   "scripts": {
     "lint": "standard"
   }

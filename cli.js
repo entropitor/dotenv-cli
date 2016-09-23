@@ -2,6 +2,7 @@
 
 var spawn = require('cross-spawn')
 var path = require('path')
+var fs = require('fs')
 
 var argv = require('minimist')(process.argv.slice(2))
 var dotenv = require('dotenv')

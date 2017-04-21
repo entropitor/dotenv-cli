@@ -14,3 +14,6 @@ if (argv.p) {
 }
 
 spawn(argv._[0], argv._.slice(1), {stdio: 'inherit'})
+  .on('exit', function (exitCode) {
+    process.exit(exitCode)
+  })

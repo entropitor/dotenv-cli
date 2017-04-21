@@ -1,7 +1,7 @@
 {
   "name": "dotenv-cli",
   "description": "A global executable to run applications with the ENV variables loaded by dotenv",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "author": "caske33",
   "bin": {
     "dotenv": "./cli.js"

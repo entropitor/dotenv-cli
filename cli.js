@@ -6,7 +6,16 @@ var path = require('path')
 var argv = require('minimist')(process.argv.slice(2))
 var dotenv = require('dotenv')
 
-dotenv.load({path: path.resolve(argv.e || '.env')})
+var paths = ['.env']
+if (argv.e) {
+  if (typeof argv.e === 'string')
+    paths = [argv.e]
+  else
+    paths = argv.e
+}
+paths.forEach(function (env) {
+  dotenv.load({path: path.resolve(env)})
+})
 
 if (argv.p) {
   console.log(process.env[argv.p])

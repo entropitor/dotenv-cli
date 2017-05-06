@@ -8,10 +8,11 @@ var dotenv = require('dotenv')
 
 var paths = ['.env']
 if (argv.e) {
-  if (typeof argv.e === 'string')
+  if (typeof argv.e === 'string') {
     paths = [argv.e]
-  else
+  } else {
     paths = argv.e
+  }
 }
 paths.forEach(function (env) {
   dotenv.load({path: path.resolve(env)})

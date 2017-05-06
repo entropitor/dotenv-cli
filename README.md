@@ -19,6 +19,11 @@ Another .env file could be specified using the -e flag:
 $ dotenv -e .env2 <command with arguments>
 ```
 
+Multiple .env files can be specified, and will be processed in order:
+```bash
+$ dotenv -e .env3 -e .env4 <command with arguments>
+```
+
 If you want to check the value of an environment variable, use the `-p` argument
 ```bash
 $ dotenv -p NODE_ENV

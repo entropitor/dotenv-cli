@@ -29,6 +29,8 @@ If you want to check the value of an environment variable, use the `-p` argument
 $ dotenv -p NODE_ENV
 ```
 
+If you want to pass parameters to the command use `--`. E.g. `mvn exec:java -Dexec.args="-g -f"` would become `dotenv mvn exec:java -- -Dexec.args="-g -f"` (See https://github.com/entropitor/dotenv-cli/issues/8)
+
 ## License
 
 [MIT](https://en.wikipedia.org/wiki/MIT_License)

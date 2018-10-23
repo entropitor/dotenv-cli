@@ -3,6 +3,9 @@
   "description": "A global executable to run applications with the ENV variables loaded by dotenv",
   "version": "1.4.0",
   "author": "caske33",
+  "contributors": [
+    "Michael Grinich (https://github.com/grinich)"
+  ],
   "bin": {
     "dotenv": "./cli.js"
   },

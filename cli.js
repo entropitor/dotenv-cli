@@ -23,7 +23,15 @@ if (argv.p) {
   process.exit()
 }
 
-spawn(argv._[0], argv._.slice(1), {stdio: 'inherit'})
+const cmdToRun = argv._[0]
+if (!cmdToRun){ // No command given
+  process.exit()
+}
+
+const cmdIndex = process.argv.indexOf(argv._[0])
+const cmdArgs = process.argv.slice(cmdIndex)
+
+spawn(cmdArgs[0], cmdArgs.slice(1), {stdio: 'inherit'})
   .on('exit', function (exitCode) {
     process.exit(exitCode)
   })

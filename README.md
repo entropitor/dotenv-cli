@@ -32,7 +32,7 @@ $ dotenv -p NODE_ENV
 If you want to pass parameters to the command use `--`. E.g. `mvn exec:java -Dexec.args="-g -f"` would become (see https://github.com/entropitor/dotenv-cli/issues/8):
 
 ```bash
-$ dotenv mvn exec:java -- -Dexec.args="-g -f"`
+$ dotenv mvn exec:java -- -Dexec.args="-g -f"
 ``` 
 
 ## License

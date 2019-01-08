@@ -12,7 +12,7 @@ $ npm install -g dotenv-cli
 $ dotenv <command with arguments>
 ```
 
-This will load the variables from the .env file in the current working directory and then run the command (using the new set of environment variables)
+This will load the variables from the .env file in the current working directory and then run the command (using the new set of environment variables).
 
 Another .env file could be specified using the -e flag:
 ```bash
@@ -29,7 +29,11 @@ If you want to check the value of an environment variable, use the `-p` argument
 $ dotenv -p NODE_ENV
 ```
 
-If you want to pass parameters to the command use `--`. E.g. `mvn exec:java -Dexec.args="-g -f"` would become `dotenv mvn exec:java -- -Dexec.args="-g -f"` (See https://github.com/entropitor/dotenv-cli/issues/8)
+If you want to pass parameters to the command use `--`. E.g. `mvn exec:java -Dexec.args="-g -f"` would become (see https://github.com/entropitor/dotenv-cli/issues/8):
+
+```bash
+$ dotenv mvn exec:java -- -Dexec.args="-g -f"
+``` 
 
 ## License
 

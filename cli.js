@@ -16,7 +16,7 @@ if (argv.e) {
   }
 }
 paths.forEach(function (env) {
-  dotenvExpand(dotenv.config({path: path.resolve(env)}))
+  dotenvExpand(dotenv.config({ path: path.resolve(env) }))
 })
 
 if (argv.p) {
@@ -24,7 +24,7 @@ if (argv.p) {
   process.exit()
 }
 
-spawn(argv._[0], argv._.slice(1), {stdio: 'inherit'})
+spawn(argv._[0], argv._.slice(1), { stdio: 'inherit' })
   .on('exit', function (exitCode) {
     process.exit(exitCode)
   })

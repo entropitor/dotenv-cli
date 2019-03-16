@@ -5,6 +5,7 @@ var path = require('path')
 
 var argv = require('minimist')(process.argv.slice(2))
 var dotenv = require('dotenv')
+var dotenvExpand = require('dotenv-expand')
 
 var paths = ['.env']
 if (argv.e) {
@@ -15,7 +16,7 @@ if (argv.e) {
   }
 }
 paths.forEach(function (env) {
-  dotenv.load({path: path.resolve(env)})
+  dotenvExpand(dotenv.config({path: path.resolve(env)}))
 })
 
 if (argv.p) {

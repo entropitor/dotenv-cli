@@ -1,8 +1,8 @@
 {
   "name": "dotenv-cli",
   "description": "A global executable to run applications with the ENV variables loaded by dotenv",
-  "version": "1.4.0",
-  "author": "caske33",
+  "version": "2.0.0",
+  "author": "entropitor",
   "bin": {
     "dotenv": "./cli.js"
   },
@@ -18,7 +18,7 @@
   "license": "MIT",
   "main": "index.js",
   "preferGlobal": true,
-  "repository": "caske33/dotenv-cli",
+  "repository": "entropitor/dotenv-cli",
   "scripts": {
     "lint": "standard"
   }

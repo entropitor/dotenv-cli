@@ -20,7 +20,8 @@ paths.forEach(function (env) {
 })
 
 if (argv.p) {
-  console.log(process.env[argv.p])
+  var value = process.env[argv.p];
+  console.log(typeof value !== 'undefined' ? value : '' );
   process.exit()
 }
 

@@ -27,7 +27,7 @@ var paths = ['.env']
 if (argv.c) {
   paths = ['.env.local', '.env']
   if (typeof argv.c === 'string') {
-    paths.unshift('.env.' + argv.c + '.local', '.env.' + argv.c)
+    paths.unshift(`.env.${arg.c}.local`, `.env.${argv.c}`)
   }
 } else if (argv.e) {
   if (typeof argv.e === 'string') {

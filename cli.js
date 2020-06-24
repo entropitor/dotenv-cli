@@ -9,11 +9,12 @@ var dotenvExpand = require('dotenv-expand')
 
 function printHelp () {
   console.log([
-    'Usage: dotenv [--help] [-e <path>] [-p <variable name>] [-- command]',
+    'Usage: dotenv [--help] [-e <path>] [-p <variable name>] [-c [environment]] [-- command]',
     '  --help              print help',
     '  -e <path>           parses the file <path> as a `.env` file and adds the variables to the environment',
     '  -e <path>           multiple -e flags are allowed',
     '  -p <variable>       print value of <variable> to the console. If you specify this, you do not have to specify a `command`',
+    '  -c [environment]    support cascading env variables from `.env`, `.env.local`, `.env.<environment>`, `.env.<environment>.local` files',
     '  command             `command` is the actual command you want to run. Best practice is to precede this command with ` -- `. Everything after `--` is considered to be your command. So any flags will not be parsed by this tool but be passed to your command. If you do not do it, this tool will strip those flags'
   ].join('\n'))
 }
@@ -23,14 +24,27 @@ if (argv.help) {
   process.exit()
 }
 
-var paths = ['.env']
+var paths = []
+
+if (argv.c) {
+  if (typeof argv.c === 'string') {
+    paths.push(`.env.${argv.c}.local`, `.env.${argv.c}`)
+  }
+  paths.push(".env.local", ".env")
+}
+
 if (argv.e) {
   if (typeof argv.e === 'string') {
-    paths = [argv.e]
+    paths.push(argv.e)
   } else {
-    paths = argv.e
+    paths.push(...argv.e)
   }
 }
+
+if (paths.length === 0) {
+  paths.push('.env')
+}
+
 paths.forEach(function (env) {
   dotenvExpand(dotenv.config({ path: path.resolve(env) }))
 })

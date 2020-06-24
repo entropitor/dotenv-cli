@@ -24,19 +24,27 @@ if (argv.help) {
   process.exit()
 }
 
-var paths = ['.env']
+var paths = []
+
 if (argv.c) {
-  paths = ['.env.local', '.env']
   if (typeof argv.c === 'string') {
-    paths.unshift(`.env.${argv.c}.local`, `.env.${argv.c}`)
+    paths.push(`.env.${argv.c}.local`, `.env.${argv.c}`)
   }
-} else if (argv.e) {
+  paths.push(".env.local", ".env")
+}
+
+if (argv.e) {
   if (typeof argv.e === 'string') {
-    paths = [argv.e]
+    paths.push(argv.e)
   } else {
-    paths = argv.e
+    paths.push(...argv.e)
   }
 }
+
+if (paths.length === 0) {
+  paths.push('.env')
+}
+
 paths.forEach(function (env) {
   dotenvExpand(dotenv.config({ path: path.resolve(env) }))
 })

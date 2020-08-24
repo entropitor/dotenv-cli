@@ -70,7 +70,26 @@ APP_URL=http://${IP}:${PORT}
 ```
 Using the above example `.env` file, `process.env.APP_URL` would be `http://127.0.0.1:1234`.
 
+### Variable expansion in the command
+
+If your `.env` file looks like:
+
+```
+SAY_HI=hello!
+```
+
+you might expect `dotenv echo "$SAY_HI"` to display `hello!`. In fact, this is not what happens: your shell will first interpret your command before passing it to `dotenv-cli`, so if `SAY_HI` envvar is set to `""`, the command will be expanded into `dotenv echo`: that's why `dotenv-cli` cannot make the expansion you expect.
+
+One possible way to get the desired result is:
+
+```
+dotenv -- bash -c 'echo "$SAY_HI"'
+```
+
+In bash, everything between `'` is not interpreted but passed as is. Since `$SAY_HI` is inside `''` brackets, it's passed as a string literal.
+
+Therefore, `dotenv-cli` will start a child process `bash -c 'echo "$SAY_HI"'` with the env variable `SAY_HI` set correctly which means bash will run `echo "$SAY_HI"` in the right environment which will print correctly `hello`
+
 ## License
 
 [MIT](https://en.wikipedia.org/wiki/MIT_License)
-

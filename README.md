@@ -86,7 +86,9 @@ One possible way to get the desired result is:
 dotenv -- bash -c 'echo "$SAY_HI"'
 ```
 
-Since `$SAY_HI` is inside `''` brackets, everything between `'` is not interpreted, so env variables are not replaced. Now `dotenv-cli` will run `bash -c 'echo "$SAY_HI"'` with the env variable set which means bash will run `echo "$SAY_HI"` in the right environment which will print correctly.
+In bash, everything between `'` is not interpreted but passed as is. Since `$SAY_HI` is inside `''` brackets, it's passed as a string literal.
+
+Therefore, `dotenv-cli` will start a child process `bash -c 'echo "$SAY_HI"'` with the env variable `SAY_HI` set correctly which means bash will run `echo "$SAY_HI"` in the right environment which will print correctly `hello`
 
 ## License
 

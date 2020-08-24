@@ -83,7 +83,7 @@ you might expect `dotenv echo "$SAY_HI"` to display `hello!`. In fact, this is n
 One possible way to get the desired result is:
 
 ```
-dotenv bash -c 'echo "$SAY_HI"'
+dotenv -- bash -c 'echo "$SAY_HI"'
 ```
 
 Since `$SAY_HI` is inside `''` brackets, everything between `'` is not interpreted, so env variables are not replaced. Now `dotenv-cli` will run `bash -c 'echo "$SAY_HI"'` with the env variable set which means bash will run `echo "$SAY_HI"` in the right environment which will print correctly.
@@ -91,4 +91,3 @@ Since `$SAY_HI` is inside `''` brackets, everything between `'` is not interpret
 ## License
 
 [MIT](https://en.wikipedia.org/wiki/MIT_License)
-

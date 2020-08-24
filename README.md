@@ -78,7 +78,7 @@ If your `.env` file looks like:
 SAY_HI=hello!
 ```
 
-you might expect `dotenv echo "$SAY_HI"` to display `hello!`. In fact, this is not what happens: your shell will first interpret your command before passing it to `dotenv`, so if `SAY_HI` envvar is set to `""`, the command will be expanded into `dotenv echo`: that's why `dotenv` cannot make the expansion you expect.
+you might expect `dotenv echo "$SAY_HI"` to display `hello!`. In fact, this is not what happens: your shell will first interpret your command before passing it to `dotenv-cli`, so if `SAY_HI` envvar is set to `""`, the command will be expanded into `dotenv echo`: that's why `dotenv-cli` cannot make the expansion you expect.
 
 One possible way to get the desired result is:
 

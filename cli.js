@@ -27,23 +27,22 @@ if (argv.help) {
 
 var paths = []
 
-if (argv.c) {
-  if (typeof argv.c === 'string') {
-    paths.push(`.env.${argv.c}.local`, `.env.${argv.c}`)
-  }
-  paths.push(".env.local", ".env")
-}
-
 if (argv.e) {
   if (typeof argv.e === 'string') {
     paths.push(argv.e)
   } else {
     paths.push(...argv.e)
   }
+} else {
+  paths.push('.env')
 }
 
-if (paths.length === 0) {
-  paths.push('.env')
+if (argv.c) {
+  paths = paths.reduce((acc, p) => acc.concat(
+    typeof argv.c === 'string'
+      ? [`${p}.${argv.c}.local`, `${p}.${argv.c}`, `${p}.local`, p]
+      : [`${p}.local`, p]
+  ), [])
 }
 
 if (argv.debug) {

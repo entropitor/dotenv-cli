@@ -9,8 +9,9 @@ var dotenvExpand = require('dotenv-expand')
 
 function printHelp () {
   console.log([
-    'Usage: dotenv [--help] [-e <path>] [-p <variable name>] [-c [environment]] [-- command]',
+    'Usage: dotenv [--help] [--debug] [-e <path>] [-p <variable name>] [-c [environment]] [-- command]',
     '  --help              print help',
+    '  --debug             output the files that would be processed but don\'t actually parse them or run the `command`',
     '  -e <path>           parses the file <path> as a `.env` file and adds the variables to the environment',
     '  -e <path>           multiple -e flags are allowed',
     '  -p <variable>       print value of <variable> to the console. If you specify this, you do not have to specify a `command`',
@@ -43,6 +44,11 @@ if (argv.e) {
 
 if (paths.length === 0) {
   paths.push('.env')
+}
+
+if (argv.debug) {
+  console.log(paths)
+  process.exit()
 }
 
 paths.forEach(function (env) {

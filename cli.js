@@ -38,10 +38,10 @@ if (argv.e) {
 }
 
 if (argv.c) {
-  paths = paths.reduce((acc, p) => acc.concat(
+  paths = paths.reduce((accumulator, path) => accumulator.concat(
     typeof argv.c === 'string'
-      ? [`${p}.${argv.c}.local`, `${p}.${argv.c}`, `${p}.local`, p]
-      : [`${p}.local`, p]
+      ? [`${path}.${argv.c}.local`, `${path}.${argv.c}`, `${path}.local`, path]
+      : [`${path}.local`, path]
   ), [])
 }
 

@@ -83,12 +83,16 @@ you might expect `dotenv echo "$SAY_HI"` to display `hello!`. In fact, this is n
 One possible way to get the desired result is:
 
 ```
-dotenv -- bash -c 'echo "$SAY_HI"'
+$ dotenv -- bash -c 'echo "$SAY_HI"'
 ```
 
 In bash, everything between `'` is not interpreted but passed as is. Since `$SAY_HI` is inside `''` brackets, it's passed as a string literal.
 
 Therefore, `dotenv-cli` will start a child process `bash -c 'echo "$SAY_HI"'` with the env variable `SAY_HI` set correctly which means bash will run `echo "$SAY_HI"` in the right environment which will print correctly `hello`
+
+### Debugging
+
+You can add the `--debug` flag to output the `.env` files that would be processed and exit.
 
 ## License
 

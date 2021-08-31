@@ -3,7 +3,7 @@
 var spawn = require('cross-spawn')
 var path = require('path')
 
-var argv = require('minimist')(process.argv.slice(2))
+var argv = require('minimist')(process.argv.slice(2), { stopEarly: true })
 var dotenv = require('dotenv')
 var dotenvExpand = require('dotenv-expand')
 

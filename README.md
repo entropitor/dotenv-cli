@@ -36,6 +36,21 @@ Some applications load from `.env`, `.env.local`, `.env.development` and `.env.d
 (see [#37](https://github.com/entropitor/dotenv-cli/issues/37) for more information).
 `dotenv-cli` supports this using the `-c` flag for just `.env` and `.env.local` and `-c development` for the ones above.
 
+### Setting variable from command line
+It is possible to set variable directly from command line using the -v flag:
+```bash
+$ dotenv -v VARIABLE=somevalue <command with arguments>
+```
+
+Multiple variables can be specified:
+```bash
+$ dotenv -v VARIABLE1=somevalue1 -v VARIABLE2=somevalue2 <command with arguments>
+```
+
+Variables set up from command line have higher priority than from env files.
+
+> Purpose of this is that standard approach `VARIABLE=somevalue <command with arguments>` doesn't work on Windows. The -v flag works on all the platforms.
+
 ### Check env variable
 If you want to check the value of an environment variable, use the `-p` flag
 ```bash

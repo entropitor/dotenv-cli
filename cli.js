@@ -9,11 +9,13 @@ var dotenvExpand = require('dotenv-expand')
 
 function printHelp () {
   console.log([
-    'Usage: dotenv [--help] [--debug] [-e <path>] [-p <variable name>] [-c [environment]] [-- command]',
+    'Usage: dotenv [--help] [--debug] [-e <path>] [-v <name>=<value>] [-p <variable name>] [-c [environment]] [-- command]',
     '  --help              print help',
     '  --debug             output the files that would be processed but don\'t actually parse them or run the `command`',
     '  -e <path>           parses the file <path> as a `.env` file and adds the variables to the environment',
     '  -e <path>           multiple -e flags are allowed',
+    '  -v <name>=<value>   put variable <name> into environment using value <value>',
+    '  -v <name>=<value>   multiple -v flags are allowed',
     '  -p <variable>       print value of <variable> to the console. If you specify this, you do not have to specify a `command`',
     '  -c [environment]    support cascading env variables from `.env`, `.env.local`, `.env.<environment>`, `.env.<environment>.local` files',
     '  command             `command` is the actual command you want to run. Best practice is to precede this command with ` -- `. Everything after `--` is considered to be your command. So any flags will not be parsed by this tool but be passed to your command. If you do not do it, this tool will strip those flags'
@@ -45,14 +47,35 @@ if (argv.c) {
   ), [])
 }
 
+
+function validateCmdVariable(param){
+  const indexOfEqualSign = param.indexOf('=')
+  if(indexOfEqualSign === -1 || indexOfEqualSign === 0 || indexOfEqualSign === param.length - 1){
+    console.error('Unexpected argument ' + param + '. Expected variable in format variable=value')
+    process.exit(1)
+  }
+  return param
+}
+var variables = []
+if (argv.v) {
+  if(typeof argv.v === 'string')
+    variables.push(validateCmdVariable(argv.v))
+  else
+    variables.push(...argv.v.map(validateCmdVariable))
+}
+var parsed = dotenv.parse(Buffer.from(variables.join('\n')))
+
+
 if (argv.debug) {
   console.log(paths)
+  console.log(parsed)
   process.exit()
 }
 
 paths.forEach(function (env) {
   dotenvExpand(dotenv.config({ path: path.resolve(env) }))
 })
+Object.assign(process.env, parsed)
 
 if (argv.p) {
   var value = process.env[argv.p]

@@ -47,11 +47,11 @@ if (argv.c) {
 }
 
 function validateCmdVariable (param) {
-  const indexOfEqualSign = param.indexOf('=')
-  if (indexOfEqualSign === -1 || indexOfEqualSign === 0 || indexOfEqualSign === param.length - 1) {
+  if (!param.match(/^\w+=\w+$/)) {
     console.error('Unexpected argument ' + param + '. Expected variable in format variable=value')
     process.exit(1)
   }
+
   return param
 }
 var variables = []

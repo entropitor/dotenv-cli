@@ -28,7 +28,6 @@ if (argv.help) {
 }
 
 var paths = []
-
 if (argv.e) {
   if (typeof argv.e === 'string') {
     paths.push(argv.e)
@@ -47,10 +46,9 @@ if (argv.c) {
   ), [])
 }
 
-
-function validateCmdVariable(param){
+function validateCmdVariable (param) {
   const indexOfEqualSign = param.indexOf('=')
-  if(indexOfEqualSign === -1 || indexOfEqualSign === 0 || indexOfEqualSign === param.length - 1){
+  if (indexOfEqualSign === -1 || indexOfEqualSign === 0 || indexOfEqualSign === param.length - 1) {
     console.error('Unexpected argument ' + param + '. Expected variable in format variable=value')
     process.exit(1)
   }
@@ -58,24 +56,24 @@ function validateCmdVariable(param){
 }
 var variables = []
 if (argv.v) {
-  if(typeof argv.v === 'string')
+  if (typeof argv.v === 'string') {
     variables.push(validateCmdVariable(argv.v))
-  else
+  } else {
     variables.push(...argv.v.map(validateCmdVariable))
+  }
 }
-var parsed = dotenv.parse(Buffer.from(variables.join('\n')))
-
+var parsedVariables = dotenv.parse(Buffer.from(variables.join('\n')))
 
 if (argv.debug) {
   console.log(paths)
-  console.log(parsed)
+  console.log(parsedVariables)
   process.exit()
 }
 
 paths.forEach(function (env) {
   dotenvExpand(dotenv.config({ path: path.resolve(env) }))
 })
-Object.assign(process.env, parsed)
+Object.assign(process.env, parsedVariables)
 
 if (argv.p) {
   var value = process.env[argv.p]

@@ -12,6 +12,11 @@ Yarn
 $ yarn global add dotenv-cli
 ```
 
+pnpm
+```bash
+pnpm add -g dotenv-cli
+```
+
 ## Usage
 
 ```bash

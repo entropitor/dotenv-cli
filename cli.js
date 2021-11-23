@@ -88,6 +88,10 @@ if (!command) {
 }
 
 spawn(command, argv._.slice(1), { stdio: 'inherit' })
-  .on('exit', function (exitCode) {
-    process.exit(exitCode)
+  .on('exit', function (exitCode, signal) {
+    if (typeof exitCode === 'number') {
+      process.exit(exitCode)
+    } else {
+      process.kill(process.pid, signal)
+    }
   })

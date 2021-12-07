@@ -1,20 +1,20 @@
-# dotenv-cli
+# ldapenv-cli
 
 ## Installing
 
 NPM
 ```bash
-$ npm install -g dotenv-cli
+$ npm install -g ldapenv-cli
 ```
 
 Yarn
 ```bash
-$ yarn global add dotenv-cli
+$ yarn global add ldapenv-cli
 ```
 
 pnpm
 ```bash
-pnpm add -g dotenv-cli
+pnpm add -g ldapenv-cli
 ```
 
 ## Usage
@@ -38,8 +38,8 @@ $ dotenv -e .env3 -e .env4 <command with arguments>
 
 ### Cascading env variables
 Some applications load from `.env`, `.env.local`, `.env.development` and `.env.development.local`
-(see [#37](https://github.com/entropitor/dotenv-cli/issues/37) for more information).
-`dotenv-cli` supports this using the `-c` flag for just `.env` and `.env.local` and `-c development` for the ones above.
+(see [#37](https://github.com/entropitor/ldapenv-cli/issues/37) for more information).
+`ldapenv-cli` supports this using the `-c` flag for just `.env` and `.env.local` and `-c development` for the ones above.
 
 ### Setting variable from command line
 It is possible to set variable directly from command line using the -v flag:
@@ -63,14 +63,14 @@ $ dotenv -p NODE_ENV
 ```
 
 ### Flags to the underlying command
-If you want to pass flags to the inner command use `--` after all the flags to `dotenv-cli`. 
+If you want to pass flags to the inner command use `--` after all the flags to `ldapenv-cli`. 
 
-E.g. the following command without dotenv-cli:
+E.g. the following command without ldapenv-cli:
 ```bash
 mvn exec:java -Dexec.args="-g -f"
 ```
 
-will become the following command with dotenv-cli:
+will become the following command with ldapenv-cli:
 ```bash
 $ dotenv -- mvn exec:java -Dexec.args="-g -f"
 ``` 
@@ -98,7 +98,7 @@ If your `.env` file looks like:
 SAY_HI=hello!
 ```
 
-you might expect `dotenv echo "$SAY_HI"` to display `hello!`. In fact, this is not what happens: your shell will first interpret your command before passing it to `dotenv-cli`, so if `SAY_HI` envvar is set to `""`, the command will be expanded into `dotenv echo`: that's why `dotenv-cli` cannot make the expansion you expect.
+you might expect `dotenv echo "$SAY_HI"` to display `hello!`. In fact, this is not what happens: your shell will first interpret your command before passing it to `ldapenv-cli`, so if `SAY_HI` envvar is set to `""`, the command will be expanded into `dotenv echo`: that's why `ldapenv-cli` cannot make the expansion you expect.
 
 One possible way to get the desired result is:
 
@@ -108,7 +108,7 @@ $ dotenv -- bash -c 'echo "$SAY_HI"'
 
 In bash, everything between `'` is not interpreted but passed as is. Since `$SAY_HI` is inside `''` brackets, it's passed as a string literal.
 
-Therefore, `dotenv-cli` will start a child process `bash -c 'echo "$SAY_HI"'` with the env variable `SAY_HI` set correctly which means bash will run `echo "$SAY_HI"` in the right environment which will print correctly `hello`
+Therefore, `ldapenv-cli` will start a child process `bash -c 'echo "$SAY_HI"'` with the env variable `SAY_HI` set correctly which means bash will run `echo "$SAY_HI"` in the right environment which will print correctly `hello`
 
 ### Debugging
 

@@ -1,24 +1,26 @@
 {
-  "name": "dotenv-cli",
-  "description": "A global executable to run applications with the ENV variables loaded by dotenv",
-  "version": "4.1.1",
-  "author": "entropitor",
+  "name": "@ilb/ldapenv-cli",
+  "description": "A global executable to run applications with the ENV variables loaded by dotenv and ldapenv",
+  "version": "1.0.0",
+  "author": "slavb18",
+  "type": "module",
   "bin": {
-    "dotenv": "./cli.js"
+    "ldapenv": "./cli.js"
   },
   "dependencies": {
+    "@ilb/node_context": "^1.0.25",
     "cross-spawn": "^7.0.1",
     "dotenv": "^8.1.0",
     "dotenv-expand": "^5.1.0",
     "minimist": "^1.1.3"
   },
   "devDependencies": {
-    "standard": "^14.3.1"
+    "standard": "^16.0.4"
   },
   "license": "MIT",
   "main": "index.js",
   "preferGlobal": true,
-  "repository": "entropitor/dotenv-cli",
+  "repository": "ilb/ldapenv-cli",
   "scripts": {
     "lint": "standard"
   },

@@ -8,7 +8,7 @@
     "ldapenv": "./cli.js"
   },
   "dependencies": {
-    "@ilb/node_context": "^1.0.25",
+    "@ilb/node_context": "^1.0.26",
     "cross-spawn": "^7.0.1",
     "dotenv": "^8.1.0",
     "dotenv-expand": "^5.1.0",

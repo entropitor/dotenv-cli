@@ -12,6 +12,7 @@ function printHelp () {
     'Usage: dotenv [--help] [--debug] [-e <path>] [-v <name>=<value>] [-p <variable name>] [-c [environment]] [-- command]',
     '  --help              print help',
     '  --debug             output the files that would be processed but don\'t actually parse them or run the `command`',
+    '  --override          override any environment variables that have already been set on your machine with values from your .env file.',
     '  -e <path>           parses the file <path> as a `.env` file and adds the variables to the environment',
     '  -e <path>           multiple -e flags are allowed',
     '  -v <name>=<value>   put variable <name> into environment using value <value>',
@@ -70,8 +71,9 @@ if (argv.debug) {
   process.exit()
 }
 
+const override = !!argv.override
 paths.forEach(function (env) {
-  dotenvExpand(dotenv.config({ path: path.resolve(env) }))
+  dotenvExpand.expand(dotenv.config({ path: path.resolve(env), override }))
 })
 Object.assign(process.env, parsedVariables)
 

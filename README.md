@@ -46,8 +46,8 @@ Override any environment variables that have already been set on your machine wi
 
 Example:
 ```bash
-$ echo "NODE_ENV=production" > .env
-$ NODE_ENV=test dotenv --override -p LOG_LEVEL
+$ echo "NODE_ENV=test" > .env
+$ NODE_ENV=production dotenv --override -p LOG_LEVEL
 test
 ```
 ### Setting variable from command line

@@ -42,14 +42,13 @@ Some applications load from `.env`, `.env.local`, `.env.development` and `.env.d
 `dotenv-cli` supports this using the `-c` flag for just `.env` and `.env.local` and `-c development` for the ones above.
 
 ### Override
-Override any environment variables that have already been set on your machine (or in case of using multiple environment files, defined by previous environment file) with values from your .env file.
+Override any environment variables that have already been set on your machine with values from your .env file.
 
 Example:
 ```bash
-$ echo "API_TOKEN=default" > .env
-$ echo "API_TOKEN=secret" > .env.override # .env.override may be ignored by .gitignore
-$ dotenv --override -e .env -e .env.override -p API_TOKEN
-secret
+$ echo "NODE_ENV=production" > .env
+$ NODE_ENV=test dotenv --override -p LOG_LEVEL
+test
 ```
 ### Setting variable from command line
 It is possible to set variable directly from command line using the -v flag:

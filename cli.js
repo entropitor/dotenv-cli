@@ -5,7 +5,7 @@ var path = require('path')
 
 var argv = require('minimist')(process.argv.slice(2))
 var dotenv = require('dotenv')
-var dotenvExpand = require('dotenv-expand')
+var dotenvExpand = require('dotenv-expand').expand
 
 function printHelp () {
   console.log([

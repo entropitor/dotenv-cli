@@ -10,7 +10,7 @@
     "cross-spawn": "^7.0.3",
     "dotenv": "^16.0.0",
     "dotenv-expand": "^8.0.1",
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.6"
   },
   "devDependencies": {
     "standard": "^16.0.4"

@@ -17,7 +17,7 @@ function printHelp () {
     '  -v <name>=<value>   put variable <name> into environment using value <value>',
     '  -v <name>=<value>   multiple -v flags are allowed',
     '  -p <variable>       print value of <variable> to the console. If you specify this, you do not have to specify a `command`',
-    '  -c [environment]    support cascading env variables from `.env`, `.env.local`, `.env.<environment>`, `.env.<environment>.local` files',
+    '  -c [environment]    support cascading env variables from `.env`, `.env.<environment>`, `.env.local`, `.env.<environment>.local` files',
     '  command             `command` is the actual command you want to run. Best practice is to precede this command with ` -- `. Everything after `--` is considered to be your command. So any flags will not be parsed by this tool but be passed to your command. If you do not do it, this tool will strip those flags'
   ].join('\n'))
 }
@@ -41,7 +41,7 @@ if (argv.e) {
 if (argv.c) {
   paths = paths.reduce((accumulator, path) => accumulator.concat(
     typeof argv.c === 'string'
-      ? [`${path}.${argv.c}.local`, `${path}.${argv.c}`, `${path}.local`, path]
+      ? [`${path}.${argv.c}.local`, `${path}.local`, `${path}.${argv.c}`, path]
       : [`${path}.local`, path]
   ), [])
 }

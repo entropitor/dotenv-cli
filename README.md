@@ -37,7 +37,7 @@ $ dotenv -e .env3 -e .env4 <command with arguments>
 ```
 
 ### Cascading env variables
-Some applications load from `.env`, `.env.local`, `.env.development` and `.env.development.local`
+Some applications load from `.env`, `.env.development`, `.env.local`, and `.env.development.local`
 (see [#37](https://github.com/entropitor/dotenv-cli/issues/37) for more information).
 `dotenv-cli` supports this using the `-c` flag for just `.env` and `.env.local` and `-c development` for the ones above.
 

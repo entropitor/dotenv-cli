@@ -47,7 +47,7 @@ if (argv.c) {
 }
 
 function validateCmdVariable (param) {
-  if (!param.match(/^\w+=[a-zA-Z0-9"=^!?%@_&\-/:;.]+$/)) {
+  if (!param.match(/^\w+=[a-zA-Z0-9"=^!?%@_&\-/:;.*]+$/)) {
     console.error('Unexpected argument ' + param + '. Expected variable in format variable=value')
     process.exit(1)
   }

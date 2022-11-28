@@ -40,7 +40,7 @@ $ dotenv -e .env3 -e .env4 <command with arguments>
 Some applications load from `.env`, `.env.development`, `.env.local`, and `.env.development.local`
 (see [#37](https://github.com/entropitor/dotenv-cli/issues/37) for more information).
 `dotenv-cli` supports this using the `-c` flag for just `.env` and `.env.local` and `-c development` for the ones above.
-The `-c` flag can be used together together with the `-e` flag. The following example will cascade env files located one folder up in the directory tree (`../.env` followed by `../.env.local`):
+The `-c` flag can be used together with the `-e` flag. The following example will cascade env files located one folder up in the directory tree (`../.env` followed by `../.env.local`):
 ```bash
 dotenv -e ../.env -c 
 ```

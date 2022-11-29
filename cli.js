@@ -4,7 +4,7 @@ import spawn from 'cross-spawn';
 import path from 'path';
 import minimist from 'minimist';
 import dotenv from 'dotenv';
-import dotenvExpand from 'dotenv-expand';
+import { expand } from '@maximumquiet/dotenv-expand';
 import createDebug from 'debug';
 const debug = createDebug('ldapenv');
 import ContextFactory from '@ilb/node_context';
@@ -83,7 +83,7 @@ if (argv.debug) {
 }
 
 paths.forEach(function (env) {
-  dotenvExpand(dotenv.config({ path: path.resolve(env) }));
+  expand(dotenv.config({ path: path.resolve(env) }));
 });
 Object.assign(process.env, parsedVariables);
 

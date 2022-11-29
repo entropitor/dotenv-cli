@@ -1,7 +1,7 @@
 {
   "name": "@ilb/ldapenv-cli",
   "description": "A global executable to run applications with the ENV variables loaded by dotenv and ldapenv",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "slavb18",
   "type": "module",
   "bin": {
@@ -11,7 +11,7 @@
     "@ilb/node_context": "^1.0.26",
     "cross-spawn": "^7.0.1",
     "dotenv": "^8.1.0",
-    "dotenv-expand": "^5.1.0",
+    "@maximumquiet/dotenv-expand": "^9.0.1",
     "minimist": "^1.1.3"
   },
   "devDependencies": {

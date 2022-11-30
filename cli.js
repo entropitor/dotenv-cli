@@ -104,7 +104,7 @@ const contextConfig = {
 };
 debug('contextConfig = %o', contextConfig);
 const contextFactory = new ContextFactory(contextConfig);
-await contextFactory.build();
+await contextFactory.build().then(parsed => expand({ parsed }));
 
 spawn(command, argv._.slice(1), { stdio: 'inherit' }).on('exit', function (exitCode, signal) {
   if (typeof exitCode === 'number') {

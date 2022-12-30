@@ -87,29 +87,36 @@ paths.forEach(function (env) {
 });
 Object.assign(process.env, parsedVariables);
 
-if (argv.p) {
-  var value = process.env[argv.p];
-  console.log(value != null ? value : '');
-  process.exit();
-}
-
 var command = argv._[0];
 if (!command) {
   printHelp();
   process.exit(1);
 }
+
+const args = [];
+if (argv.p) {
+  args.push('-p', argv.p);
+}
+
+if (argv.H) {
+  args.push('-H', argv.H);
+}
+
 const contextConfig = {
   webXmlPath: argv.webxml,
   contextXmlPath: argv.context
 };
 debug('contextConfig = %o', contextConfig);
 const contextFactory = new ContextFactory(contextConfig);
-await contextFactory.build().then(parsed => expand({ parsed }));
+await contextFactory.build().then((parsed) => expand({ parsed }));
 
-spawn(command, argv._.slice(1), { stdio: 'inherit' }).on('exit', function (exitCode, signal) {
-  if (typeof exitCode === 'number') {
-    process.exit(exitCode);
-  } else {
-    process.kill(process.pid, signal);
+spawn(command, [argv._.slice(1), ...args], { stdio: 'inherit' }).on(
+  'exit',
+  function (exitCode, signal) {
+    if (typeof exitCode === 'number') {
+      process.exit(exitCode);
+    } else {
+      process.kill(process.pid, signal);
+    }
   }
-});
+);

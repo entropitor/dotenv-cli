@@ -37,12 +37,12 @@ $ dotenv -e .env3 -e .env4 <command with arguments>
 ```
 
 ### Cascading env variables
-Some applications load from `.env`, `.env.development`, `.env.local`, and `.env.development.local`
+Some applications load from `.env`, `.env.local`, `.env.development`, and `.env.development.local`
 (see [#37](https://github.com/entropitor/dotenv-cli/issues/37) for more information).
 `dotenv-cli` supports this using the `-c` flag for just `.env` and `.env.local` and `-c development` for the ones above.
 The `-c` flag can be used together with the `-e` flag. The following example will cascade env files located one folder up in the directory tree (`../.env` followed by `../.env.local`):
 ```bash
-dotenv -e ../.env -c 
+dotenv -e ../.env -c
 ```
 
 ### Setting variable from command line
@@ -67,7 +67,7 @@ $ dotenv -p NODE_ENV
 ```
 
 ### Flags to the underlying command
-If you want to pass flags to the inner command use `--` after all the flags to `dotenv-cli`. 
+If you want to pass flags to the inner command use `--` after all the flags to `dotenv-cli`.
 
 E.g. the following command without dotenv-cli:
 ```bash
@@ -77,11 +77,11 @@ mvn exec:java -Dexec.args="-g -f"
 will become the following command with dotenv-cli:
 ```bash
 $ dotenv -- mvn exec:java -Dexec.args="-g -f"
-``` 
+```
 or in case the env file is at `.my-env`
 ```bash
 $ dotenv -e .my-env -- mvn exec:java -Dexec.args="-g -f"
-``` 
+```
 
 ### Variable expansion
 We support expanding env variables inside .env files (See [dotenv-expand](https://github.com/motdotla/dotenv-expand) npm package for more information)

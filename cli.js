@@ -19,6 +19,7 @@ function printHelp () {
     '  -p <variable>       print value of <variable> to the console. If you specify this, you do not have to specify a `command`',
     '  -c [environment]    support cascading env variables from `.env`, `.env.<environment>`, `.env.local`, `.env.<environment>.local` files',
     '  --no-expand         skip variable expansion',
+    '  -o, --override      override system variables',
     '  command             `command` is the actual command you want to run. Best practice is to precede this command with ` -- `. Everything after `--` is considered to be your command. So any flags will not be parsed by this tool but be passed to your command. If you do not do it, this tool will strip those flags'
   ].join('\n'))
 }
@@ -72,7 +73,8 @@ if (argv.debug) {
 }
 
 paths.forEach(function (env) {
-  var parsedFile = dotenv.config({ path: path.resolve(env) })
+  const override = argv.o || argv.override;
+  var parsedFile = dotenv.config({ path: path.resolve(env), override })
   if (argv.expand !== false) {
     dotenvExpand(parsedFile)
   }

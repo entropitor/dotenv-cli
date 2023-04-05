@@ -137,6 +137,14 @@ Example here with npm scripts in a package.json
 
 You can add the `--debug` flag to output the `.env` files that would be processed and exit.
 
+### Override
+
+Override any environment variables that have already been set on your machine with values from your .env file.
+
+```bash
+dotenv -c test -o -- jest
+```
+
 ## License
 
 [MIT](https://en.wikipedia.org/wiki/MIT_License)

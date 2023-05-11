@@ -6,8 +6,8 @@ import minimist from 'minimist';
 import dotenv from 'dotenv';
 import { expand } from '@maximumquiet/dotenv-expand';
 import createDebug from 'debug';
+import { ContextFactory } from 'icontext';
 const debug = createDebug('ldapenv');
-import ContextFactory from '@ilb/node_context';
 
 var argv = minimist(process.argv.slice(2));
 

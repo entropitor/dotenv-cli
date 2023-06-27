@@ -41,11 +41,15 @@ if (argv.e) {
 }
 
 if (argv.c) {
-  paths = paths.reduce((accumulator, path) => accumulator.concat(
-    typeof argv.c === 'string'
+  const override = argv.o || argv.override;
+  paths = paths.reduce((accumulator, path) => {
+    let cascadePaths = typeof argv.c === 'string'
       ? [`${path}.${argv.c}.local`, `${path}.local`, `${path}.${argv.c}`, path]
-      : [`${path}.local`, path]
-  ), [])
+      : [`${path}.local`, path];
+    // when enabling environment overrides, invert the cascade order because values in the last file win
+    if (override) cascadePaths = cascadePaths.reverse();
+    return accumulator.concat(cascadePaths)
+  }, [])
 }
 
 function validateCmdVariable (param) {

@@ -142,7 +142,7 @@ You can add the `--debug` flag to output the `.env` files that would be processe
 Override any environment variables that have already been set on your machine with values from your .env file.
 
 ```bash
-dotenv -c test -o -- jest
+dotenv -e .env.test -o -- jest
 ```
 
 ## License

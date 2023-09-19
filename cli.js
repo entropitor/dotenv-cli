@@ -10,14 +10,14 @@ var dotenvExpand = require('dotenv-expand').expand
 function printHelp () {
   console.log([
     'Usage: dotenv [--help] [--debug] [-e <path>] [-v <name>=<value>] [-p <variable name>] [-c [environment]] [--no-expand] [-- command]',
-    '  --help              print help',
-    '  --debug             output the files that would be processed but don\'t actually parse them or run the `command`',
-    '  -e <path>           parses the file <path> as a `.env` file and adds the variables to the environment',
-    '  -e <path>           multiple -e flags are allowed',
-    '  -v <name>=<value>   put variable <name> into environment using value <value>',
-    '  -v <name>=<value>   multiple -v flags are allowed',
-    '  -p <variable>       print value of <variable> to the console. If you specify this, you do not have to specify a `command`',
-    '  -c [environment]    support cascading env variables from `.env`, `.env.<environment>`, `.env.local`, `.env.<environment>.local` files',
+    '  --help                          print help',
+    '  --debug                         output the files that would be processed but don\'t actually parse them or run the `command`',
+    '  -e, --env <path>                parses the file <path> as a `.env` file and adds the variables to the environment',
+    '  -e, --env <path>                multiple -e flags are allowed',
+    '  -v, --variable <name>=<value>   put variable <name> into environment using value <value>',
+    '  -v, --variable <name>=<value>   multiple -v flags are allowed',
+    '  -p, --print <variable>          print value of <variable> to the console. If you specify this, you do not have to specify a `command`',
+    '  -c, --config [environment]      support cascading env variables from `.env`, `.env.<environment>`, `.env.local`, `.env.<environment>.local` files',
     '  --no-expand         skip variable expansion',
     '  -o, --override      override system variables. Cannot be used along with cascade (-c).',
     '  command             `command` is the actual command you want to run. Best practice is to precede this command with ` -- `. Everything after `--` is considered to be your command. So any flags will not be parsed by this tool but be passed to your command. If you do not do it, this tool will strip those flags'
@@ -29,28 +29,31 @@ if (argv.help) {
   process.exit()
 }
 
+const config = argv.c || argv.config;
 const override = argv.o || argv.override;
+const variable = argv.v || argv.variable;
+const env = argv.e || argv.env;
 
-if (argv.c && override) {
+if (config && override) {
   console.error('Invalid arguments. Cascading env variables conflicts with overrides.')
   process.exit(1)
 }
 
 var paths = []
-if (argv.e) {
-  if (typeof argv.e === 'string') {
-    paths.push(argv.e)
+if (env) {
+  if (typeof env === 'string') {
+    paths.push(env)
   } else {
-    paths.push(...argv.e)
+    paths.push(...env)
   }
 } else {
   paths.push('.env')
 }
 
-if (argv.c) {
+if (config) {
   paths = paths.reduce((accumulator, path) => accumulator.concat(
     typeof argv.c === 'string'
-      ? [`${path}.${argv.c}.local`, `${path}.local`, `${path}.${argv.c}`, path]
+      ? [`${path}.${config}.local`, `${path}.local`, `${path}.${config}`, path]
       : [`${path}.local`, path]
   ), [])
 }
@@ -64,11 +67,11 @@ function validateCmdVariable (param) {
   return param
 }
 var variables = []
-if (argv.v) {
-  if (typeof argv.v === 'string') {
-    variables.push(validateCmdVariable(argv.v))
+if (variable) {
+  if (typeof variable === 'string') {
+    variables.push(validateCmdVariable(variable))
   } else {
-    variables.push(...argv.v.map(validateCmdVariable))
+    variables.push(...variable.map(validateCmdVariable))
   }
 }
 var parsedVariables = dotenv.parse(Buffer.from(variables.join('\n')))

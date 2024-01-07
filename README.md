@@ -3,16 +3,19 @@
 ## Installing
 
 NPM
+
 ```bash
 $ npm install -g dotenv-cli
 ```
 
 Yarn
+
 ```bash
 $ yarn global add dotenv-cli
 ```
 
 pnpm
+
 ```bash
 pnpm add -g dotenv-cli
 ```
@@ -26,32 +29,40 @@ $ dotenv <command with arguments>
 This will load the variables from the .env file in the current working directory and then run the command (using the new set of environment variables).
 
 ### Custom .env files
+
 Another .env file could be specified using the -e flag:
+
 ```bash
 $ dotenv -e .env2 <command with arguments>
 ```
 
 Multiple .env files can be specified, and will be processed in order:
+
 ```bash
 $ dotenv -e .env3 -e .env4 <command with arguments>
 ```
 
 ### Cascading env variables
+
 Some applications load from `.env`, `.env.development`, `.env.local`, and `.env.development.local`
 (see [#37](https://github.com/entropitor/dotenv-cli/issues/37) for more information).
 `dotenv-cli` supports this using the `-c` flag for just `.env` and `.env.local` and `-c development` for the ones above.
 The `-c` flag can be used together with the `-e` flag. The following example will cascade env files located one folder up in the directory tree (`../.env` followed by `../.env.local`):
+
 ```bash
-dotenv -e ../.env -c 
+dotenv -e ../.env -c
 ```
 
 ### Setting variable from command line
+
 It is possible to set variable directly from command line using the -v flag:
+
 ```bash
 $ dotenv -v VARIABLE=somevalue <command with arguments>
 ```
 
 Multiple variables can be specified:
+
 ```bash
 $ dotenv -v VARIABLE1=somevalue1 -v VARIABLE2=somevalue2 <command with arguments>
 ```
@@ -61,37 +72,47 @@ Variables set up from command line have higher priority than from env files.
 > Purpose of this is that standard approach `VARIABLE=somevalue <command with arguments>` doesn't work on Windows. The -v flag works on all the platforms.
 
 ### Check env variable
+
 If you want to check the value of an environment variable, use the `-p` flag
+
 ```bash
 $ dotenv -p NODE_ENV
 ```
 
 ### Flags to the underlying command
-If you want to pass flags to the inner command use `--` after all the flags to `dotenv-cli`. 
+
+If you want to pass flags to the inner command use `--` after all the flags to `dotenv-cli`.
 
 E.g. the following command without dotenv-cli:
+
 ```bash
 mvn exec:java -Dexec.args="-g -f"
 ```
 
 will become the following command with dotenv-cli:
+
 ```bash
 $ dotenv -- mvn exec:java -Dexec.args="-g -f"
-``` 
+```
+
 or in case the env file is at `.my-env`
+
 ```bash
 $ dotenv -e .my-env -- mvn exec:java -Dexec.args="-g -f"
-``` 
+```
 
 ### Variable expansion
+
 We support expanding env variables inside .env files (See [dotenv-expand](https://github.com/motdotla/dotenv-expand) npm package for more information)
 
 For example:
+
 ```
 IP=127.0.0.1
 PORT=1234
 APP_URL=http://${IP}:${PORT}
 ```
+
 Using the above example `.env` file, `process.env.APP_URL` would be `http://127.0.0.1:1234`.
 
 ### Variable expansion in the command
@@ -128,7 +149,40 @@ Example here with npm scripts in a package.json
 {
   "scripts": {
     "_print-stuff": "echo $STUFF",
-    "print-stuff": "dotenv -- npm run _print-stuff",
+    "print-stuff": "dotenv -- npm run _print-stuff"
+  }
+}
+```
+
+3. Shell script encapsulation
+
+Another solution is to encapsulate your script into a shell script. With this,
+you can perform programmatic checks before executing your command as well.
+
+Here's an example of loading a `$DATABASE_URL` into `goose` (A migration CLI):
+
+```sh
+# scripts/migrate:status.sh
+
+# Print the environment variable and store it into a variable.
+DATABASE_URL=$(dotenv -p DATABASE_URL)
+
+# Perform a check and show error message.
+if [ -z "$DATABASE_URL" ]; then
+ echo "Please specify DATABASE_URL in the .env of the apps/server folder."
+ exit 1
+fi
+
+# # ✨ The command to execute ✨
+goose -dir src/database/migrations postgres $DATABASE_URL status
+```
+
+Then, in your package.json, it can be as simple as:
+
+```json
+{
+  "scripts": {
+    "migrate:status": "sh scripts/migrate:status.sh"
   }
 }
 ```

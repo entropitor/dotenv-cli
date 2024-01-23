@@ -20,20 +20,26 @@ pnpm add -g dotenv-cli
 ## Usage
 
 ```bash
-$ dotenv <command with arguments>
+$ dotenv -- <command with arguments>
 ```
 
 This will load the variables from the .env file in the current working directory and then run the command (using the new set of environment variables).
 
+Alternatively, if you do not need to pass arguments to the command, you can use the shorthand:
+
+```bash
+$ dotenv <command>
+```
+
 ### Custom .env files
 Another .env file could be specified using the -e flag:
 ```bash
-$ dotenv -e .env2 <command with arguments>
+$ dotenv -e .env2 -- <command with arguments>
 ```
 
 Multiple .env files can be specified, and will be processed in order:
 ```bash
-$ dotenv -e .env3 -e .env4 <command with arguments>
+$ dotenv -e .env3 -e .env4 -- <command with arguments>
 ```
 
 ### Cascading env variables
@@ -48,12 +54,12 @@ dotenv -e ../.env -c
 ### Setting variable from command line
 It is possible to set variable directly from command line using the -v flag:
 ```bash
-$ dotenv -v VARIABLE=somevalue <command with arguments>
+$ dotenv -v VARIABLE=somevalue -- <command with arguments>
 ```
 
 Multiple variables can be specified:
 ```bash
-$ dotenv -v VARIABLE1=somevalue1 -v VARIABLE2=somevalue2 <command with arguments>
+$ dotenv -v VARIABLE1=somevalue1 -v VARIABLE2=somevalue2 -- <command with arguments>
 ```
 
 Variables set up from command line have higher priority than from env files.

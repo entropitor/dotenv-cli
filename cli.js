@@ -80,11 +80,15 @@ if (argv.debug) {
 }
 
 paths.forEach(function (env) {
-  var parsedFile = dotenv.config({ path: path.resolve(env), override })
-  if (argv.expand !== false) {
-    dotenvExpand(parsedFile)
-  }
+  dotenv.config({ path: path.resolve(env), override })
 })
+
+// Expand when all path configs are loaded
+if (argv.expand !== false) {
+  dotenvExpand({
+    parsed: process.env
+  });
+}
 Object.assign(process.env, parsedVariables)
 
 if (argv.p) {

@@ -56,12 +56,13 @@ if (argv.c) {
 }
 
 function validateCmdVariable (param) {
-  if (!param.match(/^\w+=[a-zA-Z0-9"=^!?%@_&\-/:;.]+$/)) {
-    console.error('Unexpected argument ' + param + '. Expected variable in format variable=value')
+  const [, key, val] = param.match(/^(\w+)=([\s\S]+)$/m) || []
+  if (!key || !val) {
+    console.error(`Invalid variable name. Expected variable in format '-v variable=value', but got: \`-v ${param}\`.`)
     process.exit(1)
   }
 
-  return param
+  return [key, val]
 }
 const variables = []
 if (argv.v) {
@@ -71,7 +72,7 @@ if (argv.v) {
     variables.push(...argv.v.map(validateCmdVariable))
   }
 }
-const parsedVariables = dotenv.parse(Buffer.from(variables.join('\n')))
+const parsedVariables = Object.fromEntries(variables)
 
 if (argv.debug) {
   console.log(paths)
@@ -89,6 +90,9 @@ Object.assign(process.env, parsedVariables)
 
 if (argv.p) {
   const value = process.env[argv.p]
+  if (typeof value === 'string') {
+    value = `\`${value}\``
+  }
   console.log(value != null ? value : '')
   process.exit()
 }

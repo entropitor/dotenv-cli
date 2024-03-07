@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-var spawn = require('cross-spawn')
-var path = require('path')
+const spawn = require('cross-spawn')
+const path = require('path')
 
-var argv = require('minimist')(process.argv.slice(2))
-var dotenv = require('dotenv')
-var dotenvExpand = require('dotenv-expand').expand
+const argv = require('minimist')(process.argv.slice(2))
+const dotenv = require('dotenv')
+const dotenvExpand = require('dotenv-expand').expand
 
 function printHelp () {
   console.log([
@@ -29,14 +29,14 @@ if (argv.help) {
   process.exit()
 }
 
-const override = argv.o || argv.override;
+const override = argv.o || argv.override
 
 if (argv.c && override) {
   console.error('Invalid arguments. Cascading env variables conflicts with overrides.')
   process.exit(1)
 }
 
-var paths = []
+let paths = []
 if (argv.e) {
   if (typeof argv.e === 'string') {
     paths.push(argv.e)
@@ -56,14 +56,15 @@ if (argv.c) {
 }
 
 function validateCmdVariable (param) {
-  if (!param.match(/^\w+=[a-zA-Z0-9"=^!?%@_&\-/:;.]+$/)) {
-    console.error('Unexpected argument ' + param + '. Expected variable in format variable=value')
+  const [, key, val] = param.match(/^(\w+)=([\s\S]+)$/m) || []
+  if (!key || !val) {
+    console.error(`Invalid variable name. Expected variable in format '-v variable=value', but got: \`-v ${param}\`.`)
     process.exit(1)
   }
 
-  return param
+  return [key, val]
 }
-var variables = []
+const variables = []
 if (argv.v) {
   if (typeof argv.v === 'string') {
     variables.push(validateCmdVariable(argv.v))
@@ -71,7 +72,7 @@ if (argv.v) {
     variables.push(...argv.v.map(validateCmdVariable))
   }
 }
-var parsedVariables = dotenv.parse(Buffer.from(variables.join('\n')))
+const parsedVariables = Object.fromEntries(variables)
 
 if (argv.debug) {
   console.log(paths)
@@ -80,7 +81,7 @@ if (argv.debug) {
 }
 
 paths.forEach(function (env) {
-  var parsedFile = dotenv.config({ path: path.resolve(env), override })
+  const parsedFile = dotenv.config({ path: path.resolve(env), override })
   if (argv.expand !== false) {
     dotenvExpand(parsedFile)
   }
@@ -88,12 +89,15 @@ paths.forEach(function (env) {
 Object.assign(process.env, parsedVariables)
 
 if (argv.p) {
-  var value = process.env[argv.p]
+  const value = process.env[argv.p]
+  if (typeof value === 'string') {
+    value = `\`${value}\``
+  }
   console.log(value != null ? value : '')
   process.exit()
 }
 
-var command = argv._[0]
+const command = argv._[0]
 if (!command) {
   printHelp()
   process.exit(1)

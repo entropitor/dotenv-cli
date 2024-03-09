@@ -89,9 +89,9 @@ paths.forEach(function (env) {
 Object.assign(process.env, parsedVariables)
 
 if (argv.p) {
-  const value = process.env[argv.p]
+  let value = process.env[argv.p]
   if (typeof value === 'string') {
-    value = `\`${value}\``
+    value = `${value}`
   }
   console.log(value != null ? value : '')
   process.exit()

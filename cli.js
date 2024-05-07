@@ -103,7 +103,7 @@ if (!command) {
   process.exit(1)
 }
 
-spawn(command, argv._.slice(1), { stdio: 'inherit' })
+const child = spawn(command, argv._.slice(1), { stdio: 'inherit' })
   .on('exit', function (exitCode, signal) {
     if (typeof exitCode === 'number') {
       process.exit(exitCode)
@@ -111,3 +111,9 @@ spawn(command, argv._.slice(1), { stdio: 'inherit' })
       process.kill(process.pid, signal)
     }
   })
+
+for (const signal of ['SIGINT', 'SIGTERM', 'SIGPIPE', 'SIGHUP', 'SIGBREAK', 'SIGWINCH', 'SIGUSR1', 'SIGUSR2']) {
+  process.on(signal, function () {
+    child.kill(signal)
+  })
+}

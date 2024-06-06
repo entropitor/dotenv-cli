@@ -32,7 +32,7 @@ $ dotenv <command>
 ```
 
 ### Custom .env files
-Another .env file could be specified using the -e flag:
+Another .env file could be specified using the -e flag (this will replace loading `.env` file):
 ```bash
 $ dotenv -e .env2 -- <command with arguments>
 ```

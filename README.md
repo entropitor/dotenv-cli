@@ -139,6 +139,8 @@ Example here with npm scripts in a package.json
 }
 ```
 
+This example is used in a project setting (has a package.json).  Should always install locally `npm install -D dotenv-cli`
+
 ### Debugging
 
 You can add the `--debug` flag to output the `.env` files that would be processed and exit.

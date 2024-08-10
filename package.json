@@ -17,7 +17,6 @@
   },
   "license": "MIT",
   "main": "index.js",
-  "preferGlobal": true,
   "repository": "entropitor/dotenv-cli",
   "scripts": {
     "lint": "standard"

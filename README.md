@@ -100,6 +100,14 @@ APP_URL=http://${IP}:${PORT}
 ```
 Using the above example `.env` file, `process.env.APP_URL` would be `http://127.0.0.1:1234`.
 
+#### Disabling variable expansion
+If your `.env` variables include values that should not be expanded (e.g. `PASSWORD="pas$word"`), you can pass flag `--no-expand` to `dotenv-cli` to disable variable expansion.
+
+For example:
+```bash
+dotenv --no-expand <command>
+```
+
 ### Variable expansion in the command
 
 If your `.env` file looks like:

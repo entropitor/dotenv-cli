@@ -56,7 +56,7 @@ if (argv.c) {
 }
 
 function validateCmdVariable (param) {
-  const [, key, val] = param.match(/^(\w+)=([\s\S]+)$/m) || []
+  const [, key, val] = param.match(/^([\w-]+)=([\s\S]+)$/m) || []
   if (!key || !val) {
     console.error(`Invalid variable name. Expected variable in format '-v variable=value', but got: \`-v ${param}\`.`)
     process.exit(1)

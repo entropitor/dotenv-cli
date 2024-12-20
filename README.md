@@ -20,20 +20,26 @@ pnpm add -g dotenv-cli
 ## Usage
 
 ```bash
-$ dotenv <command with arguments>
+$ dotenv -- <command with arguments>
 ```
 
 This will load the variables from the .env file in the current working directory and then run the command (using the new set of environment variables).
 
-### Custom .env files
-Another .env file could be specified using the -e flag:
+Alternatively, if you do not need to pass arguments to the command, you can use the shorthand:
+
 ```bash
-$ dotenv -e .env2 <command with arguments>
+$ dotenv <command>
+```
+
+### Custom .env files
+Another .env file could be specified using the -e flag (this will replace loading `.env` file):
+```bash
+$ dotenv -e .env2 -- <command with arguments>
 ```
 
 Multiple .env files can be specified, and will be processed in order:
 ```bash
-$ dotenv -e .env3 -e .env4 <command with arguments>
+$ dotenv -e .env3 -e .env4 -- <command with arguments>
 ```
 
 ### Cascading env variables
@@ -48,12 +54,12 @@ dotenv -e ../.env -c
 ### Setting variable from command line
 It is possible to set variable directly from command line using the -v flag:
 ```bash
-$ dotenv -v VARIABLE=somevalue <command with arguments>
+$ dotenv -v VARIABLE=somevalue -- <command with arguments>
 ```
 
 Multiple variables can be specified:
 ```bash
-$ dotenv -v VARIABLE1=somevalue1 -v VARIABLE2=somevalue2 <command with arguments>
+$ dotenv -v VARIABLE1=somevalue1 -v VARIABLE2=somevalue2 -- <command with arguments>
 ```
 
 Variables set up from command line have higher priority than from env files.
@@ -94,6 +100,14 @@ APP_URL=http://${IP}:${PORT}
 ```
 Using the above example `.env` file, `process.env.APP_URL` would be `http://127.0.0.1:1234`.
 
+#### Disabling variable expansion
+If your `.env` variables include values that should not be expanded (e.g. `PASSWORD="pas$word"`), you can pass flag `--no-expand` to `dotenv-cli` to disable variable expansion.
+
+For example:
+```bash
+dotenv --no-expand <command>
+```
+
 ### Variable expansion in the command
 
 If your `.env` file looks like:
@@ -132,6 +146,8 @@ Example here with npm scripts in a package.json
   }
 }
 ```
+
+This example is used in a project setting (has a package.json).  Should always install locally `npm install -D dotenv-cli`
 
 ### Debugging
 

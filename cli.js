@@ -3,13 +3,15 @@
 const spawn = require('cross-spawn')
 const path = require('path')
 
-const argv = require('minimist')(process.argv.slice(2))
+const argv = require('minimist')(process.argv.slice(2), {
+  string: ['ce'] // added custom environment option
+})
 const dotenv = require('dotenv')
 const dotenvExpand = require('dotenv-expand').expand
 
 function printHelp () {
   console.log([
-    'Usage: dotenv [--help] [--debug] [-e <path>] [-v <name>=<value>] [-p <variable name>] [-c [environment]] [--no-expand] [-- command]',
+    'Usage: dotenv [--help] [--debug] [-e <path>] [-v <name>=<value>] [-p <variable name>] [-c [environment]] [-ce <custom environment>] [--no-expand] [-- command]',
     '  --help              print help',
     '  --debug             output the files that would be processed but don\'t actually parse them or run the `command`',
     '  -e <path>           parses the file <path> as a `.env` file and adds the variables to the environment',
@@ -18,6 +20,7 @@ function printHelp () {
     '  -v <name>=<value>   multiple -v flags are allowed',
     '  -p <variable>       print value of <variable> to the console. If you specify this, you do not have to specify a `command`',
     '  -c [environment]    support cascading env variables from `.env`, `.env.<environment>`, `.env.local`, `.env.<environment>.local` files',
+    '  -ce <custom env>    specify a custom environment configuration file to load first',
     '  --no-expand         skip variable expansion',
     '  -o, --override      override system variables. Cannot be used along with cascade (-c).',
     '  command             `command` is the actual command you want to run. Best practice is to precede this command with ` -- `. Everything after `--` is considered to be your command. So any flags will not be parsed by this tool but be passed to your command. If you do not do it, this tool will strip those flags'
@@ -37,13 +40,18 @@ if (argv.c && override) {
 }
 
 let paths = []
+
+if (argv.ce) {
+  paths.push(argv.ce)
+}
+
 if (argv.e) {
   if (typeof argv.e === 'string') {
     paths.push(argv.e)
   } else {
     paths.push(...argv.e)
   }
-} else {
+} else if (!argv.ce) {
   paths.push('.env')
 }
 
@@ -84,7 +92,6 @@ paths.forEach(function (env) {
   dotenv.config({ path: path.resolve(env), override })
 })
 
-// Expand when all path configs are loaded
 if (argv.expand !== false) {
   dotenvExpand({
     parsed: process.env

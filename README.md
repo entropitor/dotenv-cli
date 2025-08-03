@@ -37,15 +37,26 @@ Another .env file could be specified using the -e flag (this will replace loadin
 $ dotenv -e .env2 -- <command with arguments>
 ```
 
-Multiple .env files can be specified, and will be processed in order:
+Multiple .env files can be specified, and will be processed in order, but only sets variables if they haven't already been set. So the first one wins (existing env variables win over the first file and the first file wins over the second file):
 ```bash
 $ dotenv -e .env3 -e .env4 -- <command with arguments>
 ```
 
 ### Cascading env variables
-Some applications load from `.env`, `.env.development`, `.env.local`, and `.env.development.local`
-(see [#37](https://github.com/entropitor/dotenv-cli/issues/37) for more information).
-`dotenv-cli` supports this using the `-c` flag for just `.env` and `.env.local` and `-c development` for the ones above.
+Some applications load env variables from multiple `.env` files depending on the environment:
+
+- `.env`
+- `.env.local`
+- `.env.development`
+- `.env.development.local`
+
+dotenv-cli supports this using the `-c` flag:
+
+- `-c` loads `.env` and `.env.local`
+- `-c test` loads `.env`, `.env.local`, `.env.test`, and `.env.test.local`
+
+See [#37](https://github.com/entropitor/dotenv-cli/issues/37) for more information.
+
 The `-c` flag can be used together with the `-e` flag. The following example will cascade env files located one folder up in the directory tree (`../.env` followed by `../.env.local`):
 ```bash
 dotenv -e ../.env -c 

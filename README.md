@@ -3,16 +3,19 @@
 ## Installing
 
 NPM
+
 ```bash
 $ npm install -g dotenv-cli
 ```
 
 Yarn
+
 ```bash
 $ yarn global add dotenv-cli
 ```
 
 pnpm
+
 ```bash
 pnpm add -g dotenv-cli
 ```
@@ -32,17 +35,21 @@ $ dotenv <command>
 ```
 
 ### Custom .env files
+
 Another .env file could be specified using the -e flag (this will replace loading `.env` file):
+
 ```bash
 $ dotenv -e .env2 -- <command with arguments>
 ```
 
 Multiple .env files can be specified, and will be processed in order, but only sets variables if they haven't already been set. So the first one wins (existing env variables win over the first file and the first file wins over the second file):
+
 ```bash
 $ dotenv -e .env3 -e .env4 -- <command with arguments>
 ```
 
 ### Cascading env variables
+
 Some applications load env variables from multiple `.env` files depending on the environment:
 
 - `.env`
@@ -58,17 +65,21 @@ dotenv-cli supports this using the `-c` flag:
 See [#37](https://github.com/entropitor/dotenv-cli/issues/37) for more information.
 
 The `-c` flag can be used together with the `-e` flag. The following example will cascade env files located one folder up in the directory tree (`../.env` followed by `../.env.local`):
+
 ```bash
-dotenv -e ../.env -c 
+dotenv -e ../.env -c
 ```
 
 ### Setting variable from command line
+
 It is possible to set variable directly from command line using the -v flag:
+
 ```bash
 $ dotenv -v VARIABLE=somevalue -- <command with arguments>
 ```
 
 Multiple variables can be specified:
+
 ```bash
 $ dotenv -v VARIABLE1=somevalue1 -v VARIABLE2=somevalue2 -- <command with arguments>
 ```
@@ -78,43 +89,55 @@ Variables set up from command line have higher priority than from env files.
 > Purpose of this is that standard approach `VARIABLE=somevalue <command with arguments>` doesn't work on Windows. The -v flag works on all the platforms.
 
 ### Check env variable
+
 If you want to check the value of an environment variable, use the `-p` flag
+
 ```bash
 $ dotenv -p NODE_ENV
 ```
 
 ### Flags to the underlying command
-If you want to pass flags to the inner command use `--` after all the flags to `dotenv-cli`. 
+
+If you want to pass flags to the inner command use `--` after all the flags to `dotenv-cli`.
 
 E.g. the following command without dotenv-cli:
+
 ```bash
 mvn exec:java -Dexec.args="-g -f"
 ```
 
 will become the following command with dotenv-cli:
+
 ```bash
 $ dotenv -- mvn exec:java -Dexec.args="-g -f"
-``` 
+```
+
 or in case the env file is at `.my-env`
+
 ```bash
 $ dotenv -e .my-env -- mvn exec:java -Dexec.args="-g -f"
-``` 
+```
 
 ### Variable expansion
+
 We support expanding env variables inside .env files (See [dotenv-expand](https://github.com/motdotla/dotenv-expand) npm package for more information)
 
 For example:
+
 ```
 IP=127.0.0.1
 PORT=1234
 APP_URL=http://${IP}:${PORT}
 ```
+
 Using the above example `.env` file, `process.env.APP_URL` would be `http://127.0.0.1:1234`.
 
 #### Disabling variable expansion
+
 If your `.env` variables include values that should not be expanded (e.g. `PASSWORD="pas$word"`), you can pass flag `--no-expand` to `dotenv-cli` to disable variable expansion.
 
 For example:
+
 ```bash
 dotenv --no-expand <command>
 ```
@@ -153,12 +176,12 @@ Example here with npm scripts in a package.json
 {
   "scripts": {
     "_print-stuff": "echo $STUFF",
-    "print-stuff": "dotenv -- npm run _print-stuff",
+    "print-stuff": "dotenv -- npm run _print-stuff"
   }
 }
 ```
 
-This example is used in a project setting (has a package.json).  Should always install locally `npm install -D dotenv-cli`
+This example is used in a project setting (has a package.json). Should always install locally `npm install -D dotenv-cli`
 
 ### Debugging
 

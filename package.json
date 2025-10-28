@@ -1,7 +1,7 @@
 {
   "name": "dotenv-cli",
   "description": "A global executable to run applications with the ENV variables loaded by dotenv",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "author": "entropitor",
   "bin": {
     "dotenv": "./cli.js"
@@ -21,5 +21,6 @@
   "scripts": {
     "lint": "standard"
   },
-  "resolutions": {}
+  "resolutions": {},
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

@@ -6,9 +6,13 @@ const path = require('path')
 const argv = require('minimist')(process.argv.slice(2))
 const dotenv = require('dotenv')
 const dotenvExpand = require('dotenv-expand').expand
+const pkg = require('./package.json')
 
 function printHelp () {
   console.log([
+    `dotenv-cli v${pkg.version}`,
+    'https://github.com/entropitor/dotenv-cli',
+    '',
     'Usage: dotenv [--help] [--debug] [--quiet=false] [-e <path>] [-v <name>=<value>] [-p <variable name>] [-c [environment]] [--no-expand] [-- command]',
     '  --help              print help',
     '  --debug             output the files that would be processed but don\'t actually parse them or run the `command`',

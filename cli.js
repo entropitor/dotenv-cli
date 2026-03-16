@@ -88,6 +88,11 @@ if (argv.debug) {
   process.exit()
 }
 
+// Set environment variable to suppress dotenv v17+ promotional messages
+if (isQuiet) {
+  process.env.DOTENV_CONFIG_QUIET = 'true'
+}
+
 paths.forEach(function (env) {
   dotenv.config({ path: path.resolve(env), override, quiet: isQuiet })
 })

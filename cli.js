@@ -97,10 +97,6 @@ paths.forEach(function (env) {
   dotenv.config({ path: path.resolve(env), override, quiet: isQuiet })
 })
 
-paths.forEach(function (env) {
-  dotenv.config({ path: path.resolve(env), override, quiet: isQuiet })
-})
-
 // Expand when all path configs are loaded
 if (argv.expand !== false) {
   dotenvExpand({

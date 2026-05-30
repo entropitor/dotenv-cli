@@ -88,6 +88,17 @@ Variables set up from command line have higher priority than from env files.
 
 > Purpose of this is that standard approach `VARIABLE=somevalue <command with arguments>` doesn't work on Windows. The -v flag works on all the platforms.
 
+### Windows / PowerShell
+
+PowerShell and CMD do not support the `VARIABLE=value command` syntax used on Unix.
+Use `dotenv` to load a `.env` file and run a command in PowerShell:
+
+```powershell
+dotenv -e .env -- node -e "console.log(process.env.MY_VAR)"
+# Expected output (if MY_VAR=hello is in .env):
+# hello
+```
+
 ### Check env variable
 
 If you want to check the value of an environment variable, use the `-p` flag

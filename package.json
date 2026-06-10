@@ -18,6 +18,10 @@
   "license": "MIT",
   "main": "index.js",
   "repository": "entropitor/dotenv-cli",
+  "homepage": "https://github.com/entropitor/dotenv-cli#readme",
+  "bugs": {
+    "url": "https://github.com/entropitor/dotenv-cli/issues"
+  },
   "scripts": {
     "lint": "standard"
   },

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const spawn = require('cross-spawn')
+const spawn = require('tiny-cross-spawn')
 const path = require('path')
 
 const argv = require('minimist')(process.argv.slice(2))

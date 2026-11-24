@@ -115,17 +115,23 @@ if (!command) {
   process.exit(1)
 }
 
+const signalHandlers = new Map()
 const child = spawn(command, argv._.slice(1), { stdio: 'inherit' })
   .on('exit', function (exitCode, signal) {
     if (typeof exitCode === 'number') {
       process.exit(exitCode)
     } else {
+      // Don't forward the termination signal back to the exited child.
+      const handler = signalHandlers.get(signal)
+      if (handler) process.removeListener(signal, handler)
       process.kill(process.pid, signal)
     }
   })
 
 for (const signal of ['SIGINT', 'SIGTERM', 'SIGPIPE', 'SIGHUP', 'SIGBREAK', 'SIGWINCH', 'SIGUSR1', 'SIGUSR2']) {
-  process.on(signal, function () {
+  const handler = function () {
     child.kill(signal)
-  })
+  }
+  signalHandlers.set(signal, handler)
+  process.on(signal, handler)
 }

@@ -24,7 +24,8 @@
     "url": "https://github.com/entropitor/dotenv-cli/issues"
   },
   "scripts": {
-    "lint": "standard"
+    "lint": "standard",
+    "test": "npm run lint && node test.js"
   },
   "resolutions": {},
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
